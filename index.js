@@ -9,9 +9,10 @@ class snakePart{
     }
 }
 
-let speed = 7;
+let speed = 9;
 let score = 0;
-let highScore = 0;    
+let highScore = 0
+let lastHighScore = 0;
 
 let tileCount = 20;
 let tileSize = canvas.width/tileCount - 2;
@@ -41,17 +42,27 @@ function drawGame(){
     drawSnake();
     
     drawScore();
-    if(score >= highScore){
-        highScore = score;
-    }
     drawHighScore();
+    // highscore check(DOES NOT WORK)
+    if(localStorage.getItem(highScore) !== null){
+        if (score > lastHighScore) {
+            lastHighScore = score;      
+        }
+    }
+    else{
+        lastHighScore = score;
+    }
     
     setTimeout(drawGame, 1000/speed);
-    while(speed < 20){
-        if(score % 5 == 0)
-            speed++;
-    }
+    
+    //to restart game after game over.
     document.getElementById('restart').onclick = () => {
+        window.onbeforeunload = () => {
+            localStorage.setItem("highScore", lastHighScore);
+        }
+        window.onload = () => {
+            var highScore = localStorage.getItem(highScore);
+        }
         location.reload(true);
     }
 }
@@ -100,7 +111,7 @@ function clearScreen(){
 }
 
 function drawSnake(){    
-    ctx.fillStyle = '#39ff14';
+    ctx.fillStyle = 'limegreen';
     for(let i = 0; i < snakeParts.length; i++){
         let part = snakeParts[i];
         ctx.fillRect(part.x * tileCount, part.y * tileCount, tileSize, tileSize)
@@ -143,7 +154,7 @@ function drawScore(){
 function drawHighScore(){
     ctx.fillStyle = 'white';
     ctx.font = '15px Verdana';
-    ctx.fillText('High Score : ' + score, canvas.width - 120, 35)
+    ctx.fillText('High Score : ' + highScore, canvas.width - 120, 35);
 }
 
 document.body.addEventListener('keydown', keyDown);
