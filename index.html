@@ -13,9 +13,23 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            background-color: aqua;
         }
         canvas{
             box-shadow: black 20px 10px 50px;
+        }
+        button{
+           border: none;
+           margin-top: 20px; 
+           border-radius: 5px;
+           background-color: yellowgreen;
+           font-family: Verdana, Geneva, Tahoma, sans-serif;
+           font-size: 20px;
+           padding: 8px 16px;
+        }
+        button:hover{
+            cursor: pointer;
+            background-color: green;
         }
     </style>
 </head>
@@ -23,6 +37,7 @@
 <body>
     <h1>Snake</h1>
     <canvas id="game" width="400" height="400"></canvas>
+    <button id="restart">Restart Game</button>
     <script src="index.js"></script>
 </body>
 </html>

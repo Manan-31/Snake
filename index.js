@@ -1,4 +1,5 @@
 const canvas = document.getElementById('game');
+const restartButton = document.getElementById('restart');
 const ctx = canvas.getContext('2d');
 
 class snakePart{
@@ -10,19 +11,18 @@ class snakePart{
 
 let speed = 7;
 let score = 0;
-let lastScore = 0;
-let highScore = 0;
+let highScore = 0;    
 
 let tileCount = 20;
 let tileSize = canvas.width/tileCount - 2;
 
-let headX = 10;
-let headY = 10;
+let headX = 15;
+let headY = 15;
 const snakeParts = [];
 let tailLength = 2;
 
-let appleX = 5;
-let appleY = 5;
+let appleX =  Math.floor(Math.random() * tileCount);
+let appleY =  Math.floor(Math.random() * tileCount);
 
 let xVelocity = 0;
 let yVelocity = 0;
@@ -33,7 +33,7 @@ function drawGame(){
     if(result){
         return;
     }
-
+    
     clearScreen();
     
     checkAppleCollision();
@@ -41,9 +41,19 @@ function drawGame(){
     drawSnake();
     
     drawScore();
+    if(score >= highScore){
+        highScore = score;
+    }
     drawHighScore();
-
+    
     setTimeout(drawGame, 1000/speed);
+    while(speed < 20){
+        if(score % 5 == 0)
+            speed++;
+    }
+    document.getElementById('restart').onclick = () => {
+        location.reload(true);
+    }
 }
 
 function isGameOver(){
@@ -66,7 +76,7 @@ function isGameOver(){
     else if(headY === tileCount){
         gameOver = true;
     }
-
+    
     //Going over Body
     for(let i = 0; i < snakeParts.length; i++){
         let part = snakeParts[i];
@@ -75,7 +85,7 @@ function isGameOver(){
             break;
         }
     }
-
+    
     if(gameOver){
         ctx.fillStyle = 'white';
         ctx.font = '50px Verdana';
@@ -99,7 +109,7 @@ function drawSnake(){
     if (snakeParts.length > tailLength){
         snakeParts.shift();
     }
-
+    
     ctx.fillStyle = 'orange';
     ctx.fillRect(headX * tileCount, headY * tileCount, tileSize, tileSize)
 }
@@ -127,24 +137,20 @@ function drawScore(){
     ctx.fillStyle = 'white';
     ctx.font = '15px Verdana';
     ctx.fillText('Score : ' + score, canvas.width - 80, 15)
-
+    
 }
 
 function drawHighScore(){
     ctx.fillStyle = 'white';
     ctx.font = '15px Verdana';
     ctx.fillText('High Score : ' + score, canvas.width - 120, 35)
-    if(score >= highScore){
-        highScore = score;
-    }
 }
-
 
 document.body.addEventListener('keydown', keyDown);
 
 function keyDown(event){
     //Pressing up key
-    if(event.keyCode == 38){
+    if(event.keyCode == 38 || event.keyCode == 87){
         if(yVelocity == 1){
             return;
         }
@@ -153,7 +159,7 @@ function keyDown(event){
     }
 
     //Pressing down key
-    if(event.keyCode == 40){
+    if(event.keyCode == 40 || event.keyCode == 83){
         if(yVelocity == -1){
             return;
         }
@@ -162,7 +168,7 @@ function keyDown(event){
     }
 
     //Pressing left key
-    if(event.keyCode == 37){
+    if(event.keyCode == 37 || event.keyCode == 65){
         if(xVelocity == 1){
             return;
         }
@@ -171,7 +177,7 @@ function keyDown(event){
     }
     
     //Pressing right key
-    if(event.keyCode == 39){
+    if(event.keyCode == 39 || event.keyCode == 68){
         if(xVelocity == -1){
             return;
         }
