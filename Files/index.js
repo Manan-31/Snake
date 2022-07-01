@@ -12,7 +12,10 @@ class snakePart{
 let speed = 9;
 let score = 0;
 let highScore = 0
-let lastHighScore = 0;
+let lastHighScore = JSON.parse(localStorage.getItem('highScore'));
+if(lastHighScore !== 0){
+    highScore = lastHighScore;
+}
 
 let tileCount = 20;
 let tileSize = canvas.width/tileCount - 2;
@@ -43,26 +46,12 @@ function drawGame(){
     
     drawScore();
     drawHighScore();
-    // highscore check
-    if(localStorage.getItem(highScore) !== null){
-        if (score > lastHighScore) {
-            lastHighScore = score;      
-        }
-    }
-    else{
-        lastHighScore = score;
-    }
     
     setTimeout(drawGame, 1000/speed);
     
     //to restart game after game over.
     document.getElementById('restart').onclick = () => {
-        window.onbeforeunload = () => {
-            localStorage.setItem("highScore", lastHighScore);
-        }
-        window.onload = () => {
-            var highScore = localStorage.getItem(highScore);
-        }
+        checkHighScore();
         location.reload(true);
     }
 }
@@ -149,6 +138,22 @@ function drawScore(){
     ctx.font = '15px Verdana';
     ctx.fillText('Score : ' + score, canvas.width - 80, 15)
     
+}
+
+function checkHighScore(){
+    if(highScore !== 0){
+        if(highScore < score){
+            highScore = score;
+            localStorage.setItem('highScore', JSON.stringify(highScore));
+        }
+        if(highScore > score){
+            return;
+        }
+    }
+    else{
+        highScore = score;
+        localStorage.setItem("highScore", JSON.stringify(score))
+    }
 }
 
 function drawHighScore(){

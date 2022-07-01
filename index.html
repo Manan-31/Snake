@@ -5,7 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Xenzia</title>
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/60/000000/external-snake-jungle-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png">
     <style>
+        @font-face {
+        font-family: "SnakeFont";
+        src: url("Files/Snake.ttf");
+        }
         body{
             margin: 0px;
             padding: 0px;
@@ -13,7 +18,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: cornflowerblue;
+            background: linear-gradient(to top left, #145c93, #15945d);
+            font-family: "SnakeFont";
+            font-size: larger;  
         }
         canvas{
             box-shadow: black 20px 10px 50px;
@@ -23,13 +30,21 @@
            margin-top: 20px; 
            border-radius: 5px;
            background-color: yellowgreen;
-           font-family: Verdana, Geneva, Tahoma, sans-serif;
+           font-family: SnakeFont;
            font-size: 20px;
            padding: 8px 16px;
         }
         button:hover{
             cursor: pointer;
             background-color: green;
+        }
+        #github{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            max-width: 120px;
         }
     </style>
 </head>
@@ -38,6 +53,9 @@
     <h1>Snake</h1>
     <canvas id="game" width="400" height="400"></canvas>
     <button id="restart">Restart Game</button>
+    <a href="https://github.com/Manan-31/Snake" target="_blank">
+    <img src="Files/Github.png" id="github">
+    </a>
     <script src="Files/index.js"></script>
 </body>
 </html>
