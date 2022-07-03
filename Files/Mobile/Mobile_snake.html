@@ -9,7 +9,7 @@
     <style>
         @font-face {
         font-family: "SnakeFont";
-        src: url("Files/Snake.ttf");
+        src: url("../Snake.ttf");
         }
         body{
             margin: 0px;
@@ -38,7 +38,7 @@
             cursor: pointer;
             background-color: green;
         }
-        #photo{
+        #github{
             margin-top: 10px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
@@ -46,18 +46,24 @@
             padding: 5px;
             max-width: 120px;
         }
-        #mobile{
-            margin-top: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 5px;
-            max-height: 37px;
-            width: 100px;
+        .keyboard{
+            padding: 0.5em 0;
+            width: 400px;
+            margin: 0 auto;
         }
-        .extra-buttons{
+        .top-row{
+            width: 90px;
+            margin-left: 165px;
+        }
+        /* Bottom row for keyboard */
+        .bottom-row{
             display: inline-flex;
-            margin: 0 10px;
+            margin: 5px 75px 10px;
+            column-gap: 15px;
+        }
+        .butt{
+            height: 75px;
+            width: 75px;
         }
     </style>
 </head>
@@ -66,14 +72,29 @@
     <h1>Snake</h1>
     <canvas id="game" width="400" height="400"></canvas>
     <button id="restart">Restart Game</button>
-    <div class="extra-buttons">
-        <a href="https://github.com/Manan-31/Snake" target="_blank">
-            <img class="extra-buttons" src="Files/Github.png" id="photo">
-        </a>
-        <a href="Files/Mobile/Mobile_snake.html">
-            <img class="extra-buttons" src="Files/Mobile-Version-Button.png" id="mobile">
-        </a>
-    </div>
-    <script src="Files/index.js"></script>
+    <a href="https://github.com/Manan-31/Snake" target="_blank">
+    <img src="../Github.png" id="github">
+    </a>
+    <div class="keyboard">
+        <!-- Top Row -->
+        <div class="top-row">
+          <div>
+            <button class="butt" onclick="snakeUp()">↑</button>
+          </div>
+        </div>
+        <!--Bottom Row-->
+        <div class="bottom-row">
+          <div>
+            <button class="butt" onclick="snakeLeft()">←</button>
+          </div>
+          <div>
+            <button class="butt" onclick="snakeDown()">↓</button>
+          </div>
+          <div>
+            <button class="butt" onclick="snakeRight()">→</button>
+          </div>
+        </div>
+    <script src="Mobile_snake.js"></script>
 </body>
+
 </html> 
